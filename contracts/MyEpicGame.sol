@@ -88,7 +88,19 @@ contract MyEpicGame is ERC721{
         string memory strMaxHp = Strings.toString(charAttr.maxHp);
         string memory strAttackDamage = Strings.toString(charAttr.attackDamage);
 
+        string memory json = Base64.encode(
+            abi.encodePacked(
+                '{"name: "', charAttr.name,
+                '", NFT #: "', _tokenID,
+                '",imageURI: "', charAttr.imageURI,
+                '",description": "Attack On Titan based game where you have to beat the boss using your minted character NFT"',
+                 '", "attributes": [ { "trait_type": "Health Points", "value": ',strHp,', "max_value":',strMaxHp,'}, { "trait_type": "Attack Damage", "value": ',  strAttackDamage,'} ]}'
+            )
+        );
+
+        string memory output = string(abi.encodePacked("data:application/json;base64", json));
         
+        return output;
     }
 
 }
