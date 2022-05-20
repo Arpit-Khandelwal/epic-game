@@ -10,6 +10,13 @@ const main = async () => {
 
     await gameContract.deployed();
     console.log("Contrtact deployed at: ", gameContract.address);
+
+    let txn;
+    txn = await gameContract.mintCharacterNFT(0);
+    await txn.wait();
+
+    let returnedTokenURI = await gameContract.tokenURI(1);
+    console.log("Token URI: ", returnedTokenURI);
 };
 
 const runMain = async () => {
