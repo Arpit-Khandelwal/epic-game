@@ -57,4 +57,26 @@ contract MyEpicGame is ERC721{
         _tokenIDs.increment();
     }
 
+    function mintCharacterNFT(uint _characterIndex) external{
+
+        uint256 newItemID = _tokenIDs.current();
+
+        _safeMint(msg.sender, newItemID);
+
+        nftHoldersAttributes[newItemID] = CharacterAttributes({
+            characterIndex: _characterIndex,
+            name: characters[_characterIndex].name,
+            imageURI: characters[_characterIndex].imageURI,
+            hp: characters[_characterIndex].hp,
+            maxHp: characters[_characterIndex].maxHp,
+            attackDamage: characters[_characterIndex].attackDamage
+        });
+
+        console.log("Minted %s NFT: %s and ",characters[newItemID].name ,newItemID);
+
+        nftHolders[msg.sender] = newItemID;
+
+        _tokenIDs.increment();
+    }
+
 }
