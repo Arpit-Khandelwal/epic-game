@@ -9,6 +9,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
+import "./libraries/Base64.sol";
 
 
 contract MyEpicGame is ERC721{
@@ -77,6 +78,17 @@ contract MyEpicGame is ERC721{
         nftHolders[msg.sender] = newItemID;
 
         _tokenIDs.increment();
+    }
+
+    function tokenURI(uint256 _tokenID) public view override returns (string memory)
+    {
+        CharacterAttributes memory charAttr = nftHoldersAttributes[_tokenID];
+
+        string memory strHp = Strings.toString(charAttr.hp);
+        string memory strMaxHp = Strings.toString(charAttr.maxHp);
+        string memory strAttackDamage = Strings.toString(charAttr.attackDamage);
+
+        
     }
 
 }
