@@ -4,7 +4,14 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
-contract MyEpicGame{
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
+
+
+contract MyEpicGame is ERC721{
     // constructor(){
     //     console.log("Game Contract");
     // }
@@ -18,14 +25,21 @@ contract MyEpicGame{
         uint attackDamage;
     }
 
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIDs;
+
     CharacterAttributes[] characters;
+
+    mapping(uint256 => CharacterAttributes) private nftHoldersAttributes;
+    mapping(address => uint256) private nftHolders;
 
     constructor(
         string[] memory _charactersNames,
         string[] memory _charactersImageURIs,
         uint[] memory _charactersHp,
         uint[] memory _charactersAttackDamage
-    ){
+    )
+    ERC721("Attack on Titan","AOT"){
         for(uint i = 0; i < _charactersNames.length; i++){
             characters.push(
                 CharacterAttributes({
@@ -40,6 +54,7 @@ contract MyEpicGame{
             CharacterAttributes memory c = characters[i];
             console.log("Character: %s, HP: %s, Attack damage: %s" , c.name , c.hp , c.attackDamage);            
         }
+        _tokenIDs.increment();
     }
 
 }
