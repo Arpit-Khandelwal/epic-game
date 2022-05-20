@@ -1,6 +1,6 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.1;
 
 import "hardhat/console.sol";
 
@@ -91,14 +91,14 @@ contract MyEpicGame is ERC721{
         string memory json = Base64.encode(
             abi.encodePacked(
                 '{"name: "', charAttr.name,
-                '", NFT #: "', _tokenID,
+                '", NFT #: "', Strings.toString(_tokenID),
                 '",imageURI: "', charAttr.imageURI,
                 '",description": "Attack On Titan based game where you have to beat the boss using your minted character NFT"',
                  '", "attributes": [ { "trait_type": "Health Points", "value": ',strHp,', "max_value":',strMaxHp,'}, { "trait_type": "Attack Damage", "value": ',  strAttackDamage,'} ]}'
             )
         );
 
-        string memory output = string(abi.encodePacked("data:application/json;base64", json));
+        string memory output = string(abi.encodePacked("data:application/json;base64,", json));
         
         return output;
     }
