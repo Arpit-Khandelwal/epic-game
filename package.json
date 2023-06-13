@@ -18,7 +18,7 @@
     "hardhat": "^2.9.5"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.6.0"
+    "@openzeppelin/contracts": "^4.9.1"
   },
   "directories": {
     "test": "test"
